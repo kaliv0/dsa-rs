@@ -1,3 +1,0 @@
-mod stack;
-
-fn main() {}

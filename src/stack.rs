@@ -1,45 +1,45 @@
 #[derive(Debug)]
-struct Stack<T> {
+pub struct Stack<T> {
     size: usize,
     data: Vec<T>,
 }
 
 impl<T> Stack<T> {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self {
             size: 0,
             data: Vec::new(),
         }
     }
 
-    fn len(&self) -> usize {
+    pub fn len(&self) -> usize {
         self.size
     }
 
-    fn is_empty(&self) -> bool {
+    pub fn is_empty(&self) -> bool {
         self.size == 0
     }
 
-    fn peek(&self) -> Option<&T> {
+    pub fn peek(&self) -> Option<&T> {
         if self.size == 0 {
             return None;
         }
         self.data.get(self.size - 1)
     }
 
-    fn peek_mut(&mut self) -> Option<&mut T> {
+    pub fn peek_mut(&mut self) -> Option<&mut T> {
         if self.size == 0 {
             return None;
         }
         self.data.get_mut(self.size - 1)
     }
 
-    fn push(&mut self, item: T) {
+    pub fn push(&mut self, item: T) {
         self.size += 1;
         self.data.push(item);
     }
 
-    fn pop(&mut self) -> Option<T> {
+    pub fn pop(&mut self) -> Option<T> {
         if self.size == 0 {
             return None;
         }
@@ -47,17 +47,17 @@ impl<T> Stack<T> {
         self.data.pop()
     }
 
-    fn clear(&mut self) {
+    pub fn clear(&mut self) {
         self.size = 0;
         self.data.clear();
     }
 
     // iterations
-    fn into_iter(self) -> IntoIter<T> {
+    pub fn into_iter(self) -> IntoIter<T> {
         IntoIter(self)
     }
 
-    fn iter(&self) -> Iter<T> {
+    pub fn iter(&self) -> Iter<T> {
         // let mut iterator = Iter { stack: Vec::new() };
         // for item in self.data.iter() {
         //     iterator.stack.push(item);
@@ -68,7 +68,7 @@ impl<T> Stack<T> {
         }
     }
 
-    fn iter_mut(&mut self) -> IterMut<T> {
+    pub fn iter_mut(&mut self) -> IterMut<T> {
         // let mut iterator = IterMut { stack: Vec::new() };
         // for item in self.data.iter_mut() {
         //     iterator.stack.push(item);
@@ -82,7 +82,7 @@ impl<T> Stack<T> {
 
 //
 #[derive(Debug)]
-struct IntoIter<T>(Stack<T>);
+pub struct IntoIter<T>(Stack<T>);
 impl<T: Clone> Iterator for IntoIter<T> {
     type Item = T;
     fn next(&mut self) -> Option<Self::Item> {
@@ -95,7 +95,7 @@ impl<T: Clone> Iterator for IntoIter<T> {
 }
 //
 #[derive(Debug)]
-struct Iter<'a, T: 'a> {
+pub struct Iter<'a, T: 'a> {
     stack: Vec<&'a T>,
 }
 impl<'a, T: 'a> Iterator for Iter<'a, T> {
@@ -106,7 +106,7 @@ impl<'a, T: 'a> Iterator for Iter<'a, T> {
 }
 //
 #[derive(Debug)]
-struct IterMut<'a, T: 'a> {
+pub struct IterMut<'a, T: 'a> {
     stack: Vec<&'a mut T>,
 }
 impl<'a, T: 'a> Iterator for IterMut<'a, T> {
